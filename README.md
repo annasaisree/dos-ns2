@@ -1,13 +1,11 @@
 # dos-ns2
 set ns [new Simulator]
 
-
 set tracefile [open dos.tr w]
 $ns trace-all $tracefile
 
 set namfile [open dos.nam w]
 $ns namtrace-all $namfile
-
 
 proc finish {} {
 global ns tracefile namfile
@@ -18,17 +16,11 @@ exec nam stable.nam &
 exit 0
 }
 
-
-
-
 set server1 [$ns node]
 set server2 [$ns node]
 set client1 [$ns node]
 set client2 [$ns node]
 set attacker [$ns node]
-
-
-
 
 #connecting
 
@@ -50,15 +42,12 @@ $ns attach-agent $client2 $udp2
 set udp3 [new Agent/UDP]
 $ns attach-agent $attacker $udp3
 
-
 set null [new Agent/Null]
 $ns attach-agent $server2 $null
 
 $ns connect $udp1 $null
 $ns connect $udp2 $null
 $ns connect $udp3 $null
-
-
 
 #Traffic
 set cbr1 [new Application/Traffic/CBR]
@@ -82,8 +71,6 @@ $cbr3 set rate_ 0.4mb
 $cbr3 set random_ false
 $cbr3 set interval_ 0.02
 
-
-
 #start trffic
 $ns at 0.1 "$cbr1 start"
 $ns at 0.1 "$cbr2 start"
@@ -92,7 +79,6 @@ $ns at 0.5 "$cbr3 start"
 $ns at 1.5 "$cbr1 stop"
 $ns at 2.0 "$cbr2 stop"
 $ns at 2.5 "$cbr3 stop"
-
 
 $ns at 3.0 "finish"
 $ns run
